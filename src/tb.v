@@ -26,7 +26,7 @@ module tb (
     assign segments = outputs[6:0];
 
     // instantiate the DUT
-    seven_segment_seconds seven_segment_seconds(
+    tt_7segx4_clock_abhishek_top tt_7segx4_clock_abhishek_top(
         `ifdef GL_TEST
             .vccd1( 1'b1),
             .vssd1( 1'b0),
