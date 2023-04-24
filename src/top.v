@@ -78,23 +78,8 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
 
     wire colon;
     wire [3:0] disp_data[0:3];
-    reg [1:0] digit_index; // current digit being refreshed
 
-    always @(*) begin
-        if (disp_state == 0) begin
-            colon = seconds[0];
-            disp_data[0] = hr_tens;
-            disp_data[1] = hr_ones;
-            disp_data[2] = min_tens;
-            disp_data[3] = min_ones;
-        end else begin
-            colon = 1;
-            disp_data[0] = 4'd10;
-            disp_data[1] = 4'd10;
-            disp_data[2] = sec_tens;
-            disp_data[3] = sec_ones;
-        end
-    end
+    reg [1:0] digit_index; // current digit being refreshed
 
     always @(posedge clk) begin
         // if reset, set counter to 0
@@ -103,12 +88,26 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
             disp_state <= 0;
             digit_index <= 0;
             revert_timer <= 0;
+            colon <= 0;
+            disp_data <= 0;
         end else begin
             if (second_counter == MAX_COUNT) begin
                 // reset counter
                 second_counter <= 0;
                 // Display data
-                
+                if (disp_state == 0) begin
+                    colon <= seconds[0];
+                    disp_data[0] <= hr_tens;
+                    disp_data[1] <= hr_ones;
+                    disp_data[2] <= min_tens;
+                    disp_data[3] <= min_ones;
+                end else begin
+                    colon <= 1;
+                    disp_data[0] <= 4'd10;
+                    disp_data[1] <= 4'd10;
+                    disp_data[2] <= sec_tens;
+                    disp_data[3] <= sec_ones;
+                end
                 if (revert_timer != 0) begin
                     revert_timer <= revert_timer - 1;
                     if (revert_timer == 0) begin
