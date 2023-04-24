@@ -89,7 +89,10 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
             digit_index <= 0;
             revert_timer <= 0;
             colon <= 0;
-            disp_data <= 0;
+            disp_data[0] <= 0;
+            disp_data[1] <= 0;
+            disp_data[2] <= 0;
+            disp_data[3] <= 0;
         end else begin
             if (second_counter == MAX_COUNT) begin
                 // reset counter

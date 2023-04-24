@@ -42,7 +42,7 @@ module shift_register_595 #(
             end else begin
                 sclk <= 1'b1;
                 shift_count <= shift_count - 1;
-                is_idle <= (count == 0);
+                is_idle <= (shift_count == 0);
             end
         end else begin
             latch_en <= 1'b1;
