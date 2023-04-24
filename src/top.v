@@ -76,8 +76,8 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
     // slow clock out on the last gpio
     assign clkHalfHz_out = seconds[0];
 
-    wire colon;
-    wire [3:0] disp_data[0:3];
+    reg colon;
+    reg [3:0] disp_data[0:3];
 
     reg [1:0] digit_index; // current digit being refreshed
 
