@@ -30,18 +30,18 @@ module shift_register_595 #(
             sclk <= 1'b1;
             idle <= 1'b1;
             latch_en <= 1'b0;
-            shift_count <= (NUM_COUNT_REG_BITS)'d0;
+            shift_count <= 0;
         end else if (trigger_i) begin
             idle <= 1'b0;
             latch_en <= 1'b0;
-            shift_count <= (NUM_COUNT_REG_BITS)'d(NUM_COUNT_BITS - 1);
+            shift_count <= (NUM_COUNT_BITS - 1);
         end else if (!idle) begin
             if (sclk == 1'b1) begin
                 sclk <= 1'b0;
                 data <= data_i[shift_count];
             end else begin
                 sclk <= 1'b1;
-                shift_count <= shift_count - (NUM_COUNT_REG_BITS)'d1;
+                shift_count <= shift_count - 1;
                 idle <= (count == 0);
             end
         end else begin
