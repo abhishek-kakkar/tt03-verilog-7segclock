@@ -66,7 +66,7 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
     //   switch screen from state 0 to state 1 and return in 3 seconds
     localparam REVERT_SECONDS = 3;
     localparam REVERT_SECOND_BITS = $clog2(REVERT_SECONDS);
-    reg revert_timer[$clog2(REVERT_SECOND_BITS)-1:0];
+    reg [$clog2(REVERT_SECOND_BITS)-1:0] revert_timer;
 
     wire second_pulse = second_counter == MAX_COUNT;
     wire sec_to_min;
@@ -101,7 +101,6 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
         if (reset) begin
             second_counter <= 0;
             disp_state <= 0;
-            disp_output <= 0;
             digit_index <= 0;
             revert_timer <= 0;
         end else begin
@@ -150,9 +149,9 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
 
     shift_register_595 #( .NUM_ICS(2) ) shiftReg(
         .clk_i(clk),
-        .rst_i(rst),
+        .rst_i(reset),
 
-        .trigger_i(1),
+        .trigger_i(1'b1),
         .data_i(shift_data),
 
         .sclk_o(sclk_out),

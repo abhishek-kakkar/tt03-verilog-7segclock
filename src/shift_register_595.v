@@ -22,7 +22,7 @@ module shift_register_595 #(
 
     assign sclk_o = sclk;
     assign data_o = data;
-    assign latch_en = latch_en_o;
+    assign latch_en_o = latch_en;
 
     always @(posedge clk_i) begin
         if (rst_i) begin
@@ -35,7 +35,7 @@ module shift_register_595 #(
             is_idle <= 1'b0;
             latch_en <= 1'b0;
             shift_count <= (NUM_COUNT_BITS - 1);
-        end else if (!idle) begin
+        end else if (!is_idle) begin
             if (sclk == 1'b1) begin
                 sclk <= 1'b0;
                 data <= data_i[shift_count];
