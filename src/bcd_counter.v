@@ -44,7 +44,7 @@ module bcd_counter #(
                     end else begin
                         count_tens_reg <= count_tens_reg + 1;
                     end
-                else begin
+                end else begin
                     count_ones_reg <= count_ones_reg + 1;
                 end
             end
