@@ -6,7 +6,7 @@ I/O Layout
 
 Inputs:
 
-IN0 - CLK (12.5 kHz)
+IN0 - CLK (8.192 kHz)
 IN1 - RST
 IN2 - HR++ (setting)
 IN3 - MIN++ (setting)
@@ -23,7 +23,7 @@ OUT3 - 0.5 Hz signal from divider for debug
 
 */
 
-module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 12499 ) (
+module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
   input [7:0] io_in,
   output [7:0] io_out
 );
@@ -39,8 +39,8 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 12499 ) (
     wire disp_sw;
 
     debouncer deboucerForHrSw(.i_rst(reset), .i_clk(clk), .i_btn(sw_inc_hr), .o_debounced(inc_hr));
-    debouncer deboucerForHrSw(.i_rst(reset), .i_clk(clk), .i_btn(sw_inc_min), .o_debounced(inc_min));
-    debouncer deboucerForHrSw(.i_rst(reset), .i_clk(clk), .i_btn(sw_disp_sw), .o_debounced(disp_sw));
+    debouncer deboucerForMinSw(.i_rst(reset), .i_clk(clk), .i_btn(sw_inc_min), .o_debounced(inc_min));
+    debouncer deboucerForDispSw(.i_rst(reset), .i_clk(clk), .i_btn(sw_disp_sw), .o_debounced(disp_sw));
 
     wire sclk_out;
     wire data_out;
@@ -52,7 +52,7 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 12499 ) (
     assign io_out[2] = latch_en_out;
     assign io_out[3] = clkHalfHz_out;
 
-    // external clock is 12500Hz, so need 14 bit counter
+    // external clock is 8.192kHz, so need 14 bit counter
     reg [13:0] second_counter;
 
     // Display state
@@ -89,8 +89,8 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 12499 ) (
             disp_data[3] = min_ones;
         end else begin
             colon = 1;
-            disp_data[0] = 4'10;
-            disp_data[1] = 4'10;
+            disp_data[0] = 4'd10;
+            disp_data[1] = 4'd10;
             disp_data[2] = sec_tens;
             disp_data[3] = sec_ones;
         end

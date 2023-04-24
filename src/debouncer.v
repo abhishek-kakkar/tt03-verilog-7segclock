@@ -6,8 +6,8 @@ module debouncer(
     input wire i_btn,
     output reg o_debounced
 );
-    // f = 12.5 kHz, so 20ms bounce needs 250 clock ticks
-    parameter TIME_PERIOD = 250;
+    // f = 8.192 kHz, so 20ms bounce needs 163 clock ticks
+    parameter TIME_PERIOD = 163;
 
     reg r_btn, r_aux;
     reg [7:0] timer;

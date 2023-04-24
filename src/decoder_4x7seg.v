@@ -35,10 +35,10 @@ module seg7x4withColon (
         {data_o[9:8], data_o[1:0]} = 4'b0000;
 
         case (digit_i)
-            0: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b1000
-            1: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b0100
-            2: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b0010
-            3: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b0001
+            0: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b1000;
+            1: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b0100;
+            2: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b0010;
+            3: {data_o[4], data_o[7], data_o[10], data_o[13]} = 4'b0001;
         endcase
 
         case(disp_i)
