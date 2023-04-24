@@ -127,12 +127,19 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
         end
     end
 
+    wire [3:0] hr_tens;
+    wire [3:0] hr_ones;
+    wire [3:0] min_tens;
+    wire [3:0] min_ones;
+    wire [3:0] sec_tens;
+    wire [3:0] sec_ones;
+
     // instantiate segment display
     bcd_counter #(.MAX_COUNT(23)) hr_counter ( .clk_i(clk), .rst_i(reset), .increment_i(min_to_hr | inc_hr), .count_tens_o(hr_tens), .count_ones_o(hr_ones));
     bcd_counter #(.MAX_COUNT(59)) min_counter ( .clk_i(clk), .rst_i(reset), .increment_i(sec_to_min | inc_min), .count_tens_o(min_tens), .count_ones_o(min_ones), .overflow_o(min_to_hr));
     bcd_counter #(.MAX_COUNT(59)) sec_counter ( .clk_i(clk), .rst_i(reset), .increment_i(second_pulse), .count_tens_o(sec_tens), .count_ones_o(sec_ones), .overflow_o(sec_to_min), .count_o(seconds));
 
-    wire shift_data[15:0];
+    wire [15:0] shift_data;
 
     seg7x4withColon seg7x4withColon(
         .disp_i(disp_data[digit_index]),
