@@ -28,11 +28,11 @@ module shift_register_595 #(
         if (rst_i) begin
             data <= 1'b0;
             sclk <= 1'b1;
-            idle <= 1'b1;
+            is_idle <= 1'b1;
             latch_en <= 1'b0;
             shift_count <= 0;
         end else if (trigger_i) begin
-            idle <= 1'b0;
+            is_idle <= 1'b0;
             latch_en <= 1'b0;
             shift_count <= (NUM_COUNT_BITS - 1);
         end else if (!idle) begin
@@ -42,10 +42,10 @@ module shift_register_595 #(
             end else begin
                 sclk <= 1'b1;
                 shift_count <= shift_count - 1;
-                idle <= (count == 0);
+                is_idle <= (count == 0);
             end
         end else begin
-            latch <= 1'b1;
+            latch_en <= 1'b1;
         end
     end
 
