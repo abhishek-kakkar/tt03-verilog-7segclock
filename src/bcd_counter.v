@@ -6,15 +6,15 @@ module bcd_counter #(
 
     input wire increment_i,
 
-    output wire count_tens_o[3:0],
-    output wire count_ones_o[3:0],
-    output wire count_o[6:0],
+    output wire [3:0] count_tens_o,
+    output wire [3:0] count_ones_o,
+    output wire [6:0] count_o,
 
     output wire overflow_o
 );
-    reg count_ones_reg[3:0];
-    reg count_tens_reg[3:0];
-    reg count_reg[6:0];
+    reg [3:0] count_ones_reg;
+    reg [3:0] count_tens_reg;
+    reg [6:0] count_reg;
 
     reg ovf;
 
