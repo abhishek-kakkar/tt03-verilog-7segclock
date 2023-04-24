@@ -135,9 +135,9 @@ module tt_7segx4_clock_abhishek_top #( parameter MAX_COUNT = 8191 ) (
     wire shift_data[15:0];
 
     seg7x4withColon seg7x4withColon(
-        .disp_i(disp_data[digit_index])
+        .disp_i(disp_data[digit_index]),
         .colon_i(colon),
-        .digit_i(digit_index) 
+        .digit_i(digit_index),
         .data_o(shift_data)
     );
 
